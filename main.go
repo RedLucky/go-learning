@@ -5,7 +5,7 @@ import (
 	"math"
 	"math/rand"
 	"strings"
-	"time"
+	// "time"
 )
 
 func main() {
@@ -158,7 +158,7 @@ func main() {
 	   	} */
 
 	/* =========================== FUNGSI =============================== */
-	var names = []string{"Lucky", "Fernanda"}
+	/* var names = []string{"Lucky", "Fernanda"}
 	printMessage("helo", names)
 
 	rand.Seed(time.Now().Unix())
@@ -194,7 +194,108 @@ func main() {
 	yourHobbies("wick", "sleeping", "eating")
 
 	var hobbies = []string{"sleeping", "eating"}
-	yourHobbies("wick", hobbies...)
+	yourHobbies("wick", hobbies...) */
+
+	/* ============================== FUNGSI VARIADIC ==============================*/
+	/* var getMinMax = func(n []int) (int, int) {
+		var min, max int
+		for i, e := range n {
+				switch {
+				case i == 0:
+						max, min = e, e
+				case e > max:
+						max = e
+				case e < min:
+						min = e
+				}
+		}
+		return min, max
+	}
+
+	var numbers = []int{2, 3, 4, 3, 4, 2, 3}
+	var min, max = getMinMax(numbers)
+	fmt.Printf("data : %v\nmin  : %v\nmax  : %v\n", numbers, min, max) */
+
+	/* =============================== FUNGSI SEBAGAI PARAMETER ===========================*/
+	/* var data = []string{"wick", "jason", "ethan"}
+	dataContainsO := filter(data, func(each string) bool {
+		return strings.Contains(each, "o")
+	})
+	var dataLenght5 = filter(data, func(each string) bool {
+			return len(each) == 5
+	})
+
+	fmt.Println("data asli \t\t:", data)
+	// data asli : [wick jason ethan]
+
+	fmt.Println("filter ada huruf \"o\"\t:", dataContainsO)
+	// filter ada huruf "o" : [jason]
+
+	fmt.Println("filter jumlah huruf \"5\"\t:", dataLenght5)
+	// filter jumlah huruf "5" : [jason ethan] */
+
+	/* =================================== POINTER =============================== */
+	/* 
+		- Pointer adalah reference atau alamat memori. Nilai default variabel pointer adalah nil (kosong)
+		- Variabel biasa bisa diambil nilai pointernya, caranya dengan menambahkan tanda ampersand (&) tepat sebelum nama variabel. 
+			Metode ini disebut dengan referencing.
+		- Dan sebaliknya, nilai asli variabel pointer juga bisa diambil, dengan cara menambahkan tanda asterisk (*) tepat sebelum nama variabel. 
+			Metode ini disebut dengan dereferencing.
+	*/
+	/* number4 := 4
+	var number5 *int = &number4
+
+	fmt.Println("Number4 (value) :", number4) // 4
+	fmt.Println("Number4 (address on memory) :" , &number4) // 0xc00018c008
+
+	fmt.Println("Number4 (value) :", *number5) // 4
+	fmt.Println("Number4 (address on memory) :" , number5) // 0xc00018c008
+
+
+	var numberA int = 4
+	var numberB *int = &numberA
+
+	fmt.Println("numberA (value)   :", numberA)
+	fmt.Println("numberA (address on memory) :", &numberA)
+	fmt.Println("numberB (value)   :", *numberB)
+	fmt.Println("numberB (address on memory) :", numberB)
+
+	fmt.Println("-----------------------------------")
+
+	numberA = 5
+
+	fmt.Println("numberA (value)   :", numberA)
+	fmt.Println("numberA (address) :", &numberA)
+	fmt.Println("numberB (value)   :", *numberB)
+	fmt.Println("numberB (address) :", numberB)
+
+	number := 15
+	fmt.Println("before :", number) // 15
+
+	change(&number, 10)
+  fmt.Println("after  :", number) // 10 */
+
+	/* ========================================== STRUCT ================================== */
+	/* 
+	- Go tidak memiliki class yang ada di bahasa-bahasa strict OOP lain. 
+		Tapi Go memiliki tipe data struktur yang disebut dengan Struct.
+
+	- Struct adalah kumpulan definisi variabel (atau property) dan atau fungsi (atau method), yang dibungkus sebagai tipe data baru dengan nama tertentu. 
+		Property dalam struct, tipe datanya bisa bervariasi. 
+		Mirip seperti map, hanya saja key-nya sudah didefinisikan di awal, dan tipe data tiap itemnya bisa berbeda.
+
+	- Dari sebuah struct, kita bisa buat variabel baru, yang memiliki atribut sesuai skema struct tersebut. 
+		Kita sepakati dalam buku ini, variabel tersebut dipanggil dengan istilah object atau object struct. 
+	*/
+
+	var john student
+	john.name = "john atan"
+	john.grade = 3
+
+
+	fmt.Println("name  :", john.name)
+	fmt.Println("grade :", john.grade)
+
 }
 
 // function standard
@@ -249,4 +350,33 @@ func yourHobbies(name string, hobbies ...string) {
 
 	fmt.Printf("Hello, my name is: %s\n", name)
 	fmt.Printf("My hobbies are: %s\n", hobbiesAsString)
+}
+
+func filter(data []string, callback func(string) bool) (results []string)  {
+		for _, each := range data {
+			if filtered := callback(each); filtered{
+				results = append(results, each)
+			}
+		}
+		return
+}
+
+type filterCallback func(string) bool
+
+func filterAlias(data []string, callback filterCallback) (results []string)  {
+	for _, each := range data {
+		if filtered := callback(each); filtered{
+			results = append(results, each)
+		}
+	}
+	return
+}
+
+func change(original *int, value int) {
+	*original = value
+}
+
+type student struct {
+	name string
+	grade int
 }
