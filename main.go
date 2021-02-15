@@ -235,67 +235,155 @@ func main() {
 	// filter jumlah huruf "5" : [jason ethan] */
 
 	/* =================================== POINTER =============================== */
-	/* 
+	/*
 		- Pointer adalah reference atau alamat memori. Nilai default variabel pointer adalah nil (kosong)
-		- Variabel biasa bisa diambil nilai pointernya, caranya dengan menambahkan tanda ampersand (&) tepat sebelum nama variabel. 
+		- Variabel biasa bisa diambil nilai pointernya, caranya dengan menambahkan tanda ampersand (&) tepat sebelum nama variabel.
 			Metode ini disebut dengan referencing.
-		- Dan sebaliknya, nilai asli variabel pointer juga bisa diambil, dengan cara menambahkan tanda asterisk (*) tepat sebelum nama variabel. 
+		- Dan sebaliknya, nilai asli variabel pointer juga bisa diambil, dengan cara menambahkan tanda asterisk (*) tepat sebelum nama variabel.
 			Metode ini disebut dengan dereferencing.
 	*/
 	/* number4 := 4
-	var number5 *int = &number4
+		var number5 *int = &number4
 
-	fmt.Println("Number4 (value) :", number4) // 4
-	fmt.Println("Number4 (address on memory) :" , &number4) // 0xc00018c008
+		fmt.Println("Number4 (value) :", number4) // 4
+		fmt.Println("Number4 (address on memory) :" , &number4) // 0xc00018c008
 
-	fmt.Println("Number4 (value) :", *number5) // 4
-	fmt.Println("Number4 (address on memory) :" , number5) // 0xc00018c008
+		fmt.Println("Number4 (value) :", *number5) // 4
+		fmt.Println("Number4 (address on memory) :" , number5) // 0xc00018c008
 
 
-	var numberA int = 4
-	var numberB *int = &numberA
+		var numberA int = 4
+		var numberB *int = &numberA
 
-	fmt.Println("numberA (value)   :", numberA)
-	fmt.Println("numberA (address on memory) :", &numberA)
-	fmt.Println("numberB (value)   :", *numberB)
-	fmt.Println("numberB (address on memory) :", numberB)
+		fmt.Println("numberA (value)   :", numberA)
+		fmt.Println("numberA (address on memory) :", &numberA)
+		fmt.Println("numberB (value)   :", *numberB)
+		fmt.Println("numberB (address on memory) :", numberB)
 
-	fmt.Println("-----------------------------------")
+		fmt.Println("-----------------------------------")
 
-	numberA = 5
+		numberA = 5
 
-	fmt.Println("numberA (value)   :", numberA)
-	fmt.Println("numberA (address) :", &numberA)
-	fmt.Println("numberB (value)   :", *numberB)
-	fmt.Println("numberB (address) :", numberB)
+		fmt.Println("numberA (value)   :", numberA)
+		fmt.Println("numberA (address) :", &numberA)
+		fmt.Println("numberB (value)   :", *numberB)
+		fmt.Println("numberB (address) :", numberB)
 
-	number := 15
-	fmt.Println("before :", number) // 15
+		number := 15
+		fmt.Println("before :", number) // 15
 
-	change(&number, 10)
-  fmt.Println("after  :", number) // 10 */
+		change(&number, 10)
+	  fmt.Println("after  :", number) // 10 */
 
 	/* ========================================== STRUCT ================================== */
-	/* 
-	- Go tidak memiliki class yang ada di bahasa-bahasa strict OOP lain. 
-		Tapi Go memiliki tipe data struktur yang disebut dengan Struct.
+	/*
+		- Go tidak memiliki class yang ada di bahasa-bahasa strict OOP lain.
+			Tapi Go memiliki tipe data struktur yang disebut dengan Struct.
 
-	- Struct adalah kumpulan definisi variabel (atau property) dan atau fungsi (atau method), yang dibungkus sebagai tipe data baru dengan nama tertentu. 
-		Property dalam struct, tipe datanya bisa bervariasi. 
-		Mirip seperti map, hanya saja key-nya sudah didefinisikan di awal, dan tipe data tiap itemnya bisa berbeda.
+		- Struct adalah kumpulan definisi variabel (atau property) dan atau fungsi (atau method), yang dibungkus sebagai tipe data baru dengan nama tertentu.
+			Property dalam struct, tipe datanya bisa bervariasi.
+			Mirip seperti map, hanya saja key-nya sudah didefinisikan di awal, dan tipe data tiap itemnya bisa berbeda.
 
-	- Dari sebuah struct, kita bisa buat variabel baru, yang memiliki atribut sesuai skema struct tersebut. 
-		Kita sepakati dalam buku ini, variabel tersebut dipanggil dengan istilah object atau object struct. 
+		- Dari sebuah struct, kita bisa buat variabel baru, yang memiliki atribut sesuai skema struct tersebut.
+			Kita sepakati dalam buku ini, variabel tersebut dipanggil dengan istilah object atau object struct.
 	*/
 
-	var john student
+	/* var john student
 	john.name = "john atan"
 	john.grade = 3
-
 
 	fmt.Println("name  :", john.name)
 	fmt.Println("grade :", john.grade)
 
+	var s1 = student{}
+	s1.name = "wick"
+	s1.grade = 2
+
+	var s2 = student{"ethan", 2}
+
+	var s3 = student{name: "jason"}
+
+	fmt.Println("student 1 :", s1.name)
+	fmt.Println("student 2 :", s2.name)
+	fmt.Println("student 3 :", s3.name)
+
+	var ss = []student{}
+	fmt.Println("students :", ss)
+
+	var spointer *student = &s1
+	fmt.Println("student pointer, name :", spointer.name)
+	fmt.Println("student 4, name :", s1.name)
+
+	spointer.name = "ethan"
+	fmt.Println("student 1, name :", s1.name)
+	fmt.Println("student pointer, name :", spointer.name) */
+
+	//  embedded struct
+	/* var s1 = people{}
+	s1.name = "wick"
+	s1.age = 21
+	s1.grade = 2
+
+	fmt.Println("name  :", s1.name)
+	fmt.Println("name  :", s1.person.name)
+	fmt.Println("age   :", s1.age)
+	fmt.Println("age   :", s1.person.age)
+	fmt.Println("grade :", s1.grade) */
+
+	// jika ada property yang sama, maka harus ditulis embed structnya. agar jelas
+	/* var s1 = people2{}
+	s1.name = "wick"
+	s1.age = 21        // age of student
+	s1.person.age = 22 // age of person
+
+	fmt.Println(s1.name)
+	fmt.Println(s1.age)
+	fmt.Println(s1.person.age) */
+
+	// jika pengisiannya terpisah
+	/* 	var p1 = person{name: "wick", age: 21}
+	   	var s1 = people2{person: p1, grade: 2}
+
+	   	fmt.Println("name  :", s1.name)
+	   	fmt.Println("age   :", s1.age)
+	   	fmt.Println("grade :", s1.grade) */
+
+	// anonymous struct
+	/* 	var s1 = struct {
+	   		person
+	   		grade int
+	   	}{}
+	   	s1.person = person{"wick", 21}
+	   	s1.grade = 2
+
+	   	fmt.Println("name  :", s1.person.name)
+	   	fmt.Println("age   :", s1.person.age)
+	   	fmt.Println("grade :", s1.grade) */
+
+	// struct & slice
+	/* var allStudents = []person{
+		{name: "Wick", age: 24},
+		{name: "Ethan", age: 23},
+		{name: "Bourne", age: 22},
+	}
+
+	for _, student := range allStudents {
+		fmt.Println(student.name, "age is", student.age)
+	} */
+
+	// slice anonymous struct
+	var allStudents = []struct {
+		person
+		grade int
+	}{
+		{person: person{"wick", 21}, grade: 2},
+		{person: person{"ethan", 22}, grade: 3},
+		{person: person{"bond", 23}, grade: 3},
+	}
+
+	for _, student := range allStudents {
+		fmt.Println(student)
+	}
 }
 
 // function standard
@@ -352,20 +440,20 @@ func yourHobbies(name string, hobbies ...string) {
 	fmt.Printf("My hobbies are: %s\n", hobbiesAsString)
 }
 
-func filter(data []string, callback func(string) bool) (results []string)  {
-		for _, each := range data {
-			if filtered := callback(each); filtered{
-				results = append(results, each)
-			}
+func filter(data []string, callback func(string) bool) (results []string) {
+	for _, each := range data {
+		if filtered := callback(each); filtered {
+			results = append(results, each)
 		}
-		return
+	}
+	return
 }
 
 type filterCallback func(string) bool
 
-func filterAlias(data []string, callback filterCallback) (results []string)  {
+func filterAlias(data []string, callback filterCallback) (results []string) {
 	for _, each := range data {
-		if filtered := callback(each); filtered{
+		if filtered := callback(each); filtered {
 			results = append(results, each)
 		}
 	}
@@ -377,6 +465,23 @@ func change(original *int, value int) {
 }
 
 type student struct {
+	name  string
+	grade int
+}
+
+// embedded struct
+type person struct {
 	name string
+	age  int
+}
+
+type people struct {
+	grade int
+	person
+}
+
+type people2 struct {
+	person
+	age   int
 	grade int
 }
