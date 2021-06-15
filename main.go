@@ -4,8 +4,9 @@ import (
 	"fmt"
 	"math"
 	"math/rand"
+	"runtime"
 	"strings"
-	// "time"
+	"time"
 )
 
 func main() {
@@ -372,7 +373,7 @@ func main() {
 	} */
 
 	// slice anonymous struct
-	var allStudents = []struct {
+	/* var allStudents = []struct {
 		person
 		grade int
 	}{
@@ -383,7 +384,104 @@ func main() {
 
 	for _, student := range allStudents {
 		fmt.Println(student)
+	} */
+
+	/* ======================================== METHOD ======================================= */
+	// Method adalah fungsi yang menempel pada type (bisa struct atau tipe data lainnya).
+	//Method bisa diakses lewat variabel objek.
+	/* var s1 = student{"john wick", 21}
+	s1.sayHello()
+
+	fmt.Println("nama panggilan :", s1.getNameAt(2)) */
+
+	/* method stuct
+	disini penggantian property pada struct hanya bisa berubah di methodnya saja. agar bisa berubah di manapun,
+	harus menggunakan pointer dimana program lgsg mengakses alamat memori lalu mengganti.
+	*/
+	/* var s1 = student{"john wick", 21}
+	fmt.Println("s1 before", s1.name)
+	// john wick
+
+	s1.changeName1("jason bourne")               // berubah di method saja
+	fmt.Println("s1 after changeName1", s1.name) // tidak berubah
+	// john wick
+
+	s1.changeName2("ethan hunt")
+	fmt.Println("s1 after changeName2", s1.name)
+	// ethan hunt
+
+	// pengaksesan method dari variabel objek pointer
+	var s2 = &student{"ethan hunt", 22}
+	s2.sayHello() */
+
+	/* =============================================== Library / package ========================================= */
+	// library.SayHello("lucky")
+	// library.Introduce("ethan") // error
+
+	// penggunaan struct
+	// var s1 = library.People{"ethan", 22}
+	// fmt.Println("name ", s1.Name)
+	// fmt.Println("grade", s1.Age) // error karena grade bersifat private
+
+	// import menggunakan . memudahkan kita agar kita tidak memanggil nama file nya
+	/*  . "new-project/library"
+	 contoh
+	var s1 = Student{"ethan", 21}
+	fmt.Println("name ", s1.Name)
+	fmt.Println("grade", s1.Grade)  */
+
+	// mengakses file lain tapi dalam 1 package cara menjalankan go run main.go, partial.go
+	// sayHello("ss")
+
+	/* ===================================== INTERFACE ==================================== */
+	/* 	var bangunDatar hitung
+
+	   	bangunDatar = persegi{10.0}
+	   	fmt.Println("===== persegi")
+	   	fmt.Println("luas      :", bangunDatar.luas())
+	   	fmt.Println("keliling  :", bangunDatar.keliling())
+
+	   	bangunDatar = lingkaran{14.0}
+	   	fmt.Println("===== lingkaran")
+	   	fmt.Println("luas      :", bangunDatar.luas())
+	   	fmt.Println("keliling  :", bangunDatar.keliling())
+	   	fmt.Println("jari-jari :", bangunDatar.(lingkaran).jariJari()) */
+
+	/* ===================================== GOROUTINE ===================================== */
+	runtime.GOMAXPROCS(5)
+
+	go print(10, "halo")
+	print(10, "apa kabar")
+
+	// var input string
+	// fmt.Scanln(&input)
+	go func(msg string) {
+		fmt.Println(msg)
+	}("going")
+
+	/* ==================================== CHANNEL ========================================= */
+	var messages = make(chan string)
+
+	var sayHelloTo = func(who string) {
+		var data = fmt.Sprintf("hello %s", who)
+		messages <- data
 	}
+
+	go sayHelloTo("john wick")
+	go sayHelloTo("ethan hunt")
+	go sayHelloTo("jason bourne")
+
+	var message1 = <-messages
+	fmt.Println(message1)
+
+	var message2 = <-messages
+	fmt.Println(message2)
+
+	var message3 = <-messages
+	fmt.Println(message3)
+
+	time.Sleep(time.Second)
+	fmt.Println("done")
 }
 
 // function standard
@@ -484,4 +582,66 @@ type people2 struct {
 	person
 	age   int
 	grade int
+}
+
+// method
+func (s student) sayHello() {
+	fmt.Println("halo", s.name)
+}
+
+func (s student) getNameAt(i int) string {
+	return strings.Split(s.name, " ")[i-1]
+}
+
+// method menggunakan struct
+func (s student) changeName1(name string) {
+	fmt.Println("---> on changeName1, name changed to", name)
+	s.name = name
+}
+
+func (s *student) changeName2(name string) {
+	fmt.Println("---> on changeName2, name changed to", name)
+	s.name = name
+}
+
+// interface
+type hitung interface {
+	luas() float64
+	keliling() float64
+}
+
+type lingkaran struct {
+	diameter float64
+}
+
+func (l lingkaran) jariJari() float64 {
+	return l.diameter / 2
+}
+
+func (l lingkaran) luas() float64 {
+	return math.Pi * math.Pow(l.jariJari(), 2)
+}
+
+func (l lingkaran) keliling() float64 {
+	return math.Pi * l.diameter
+}
+
+type persegi struct {
+	sisi float64
+}
+
+func (p persegi) luas() float64 {
+	return math.Pow(p.sisi, 2)
+}
+
+func (p persegi) keliling() float64 {
+	return p.sisi * 4
+}
+
+// goroutine
+
+func print(till int, message string) {
+	for i := 0; i < till; i++ {
+		fmt.Println((i + 1), message)
+	}
 }
